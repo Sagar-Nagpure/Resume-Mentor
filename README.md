@@ -18,6 +18,48 @@
 - **Visualization**: Plotly  
 - **Deployment**: Streamlit Cloud / Local  
 
+## Folder Structure
+
+```
+resume_mentor/
+├── resume_classifier.pkl
+├── app.py
+├── requirements.txt
+└── README.md
+```
+
+## Installation
+
+```bash
+git clone https://github.com/your-username/resume-mentor.git
+cd resume-mentor
+pip install -r requirements.txt
+```
+
+## Setup Cohere API Key
+
+### Option 1 – For Streamlit Cloud
+
+Create a `.streamlit/secrets.toml` file:
+
+```toml
+COHERE_API_KEY = "your-cohere-api-key"
+```
+
+### Option 2 – For Local Environment
+
+Create a `.env` file:
+
+```
+COHERE_API_KEY=your-cohere-api-key
+```
+
+## Running the App
+
+```bash
+streamlit run app.py
+```
+
 ## How It Works
 
 1. Upload a PDF resume.
@@ -55,3 +97,10 @@
 - Resume version history and improvement tracking.
 - Resume export with embedded suggestions.
 
+## Author
+
+**Sagar-Nagpure**  
+[GitHub Profile](https://github.com/Sagar-Nagpure)
+```
+
+---
