@@ -8,25 +8,19 @@ import pandas as pd
 import json
 import plotly.graph_objects as go
 
-# --- GET API KEY FROM STREAMLIT SECRETS ---
 cohere_api_key = st.secrets["COHERE_API_KEY"]
-
-# --- INIT COHERE CLIENT ---
 co = cohere.Client(cohere_api_key)
 
-# --- LOAD CLASSIFIER MODEL ---
 try:
     classifier = joblib.load("resume_classifier.pkl")
 except Exception as e:
     st.error(f"❌ Could not load classification model: {e}")
     st.stop()
 
-# --- STREAMLIT CONFIG ---
 st.set_page_config(page_title="Resume Mentor", layout="centered")
 st.title("📄 Resume Mentor")
 st.write("Upload your resume to get a predicted job domain, AI suggestions, ATS score, and extracted key skills.")
 
-# --- SKILL EXTRACTOR ---
 def extract_skills(resume_text):
     skills = [
         "Python", "Java", "JavaScript", "C", "C++", "C#", "Ruby", "PHP", "Swift", "Go", "R", "MATLAB", "SQL", "HTML", "CSS",
@@ -36,7 +30,6 @@ def extract_skills(resume_text):
     extracted = [s for s in skills if re.search(r'\b' + re.escape(s) + r'\b', resume_text, re.IGNORECASE)]
     return list(set(extracted))
 
-# --- SESSION STATE SETUP ---
 if "second_resume_visible" not in st.session_state:
     st.session_state.second_resume_visible = False
 if "second_resume_text" not in st.session_state:
@@ -52,7 +45,6 @@ if "domain_output" not in st.session_state:
 if "comparison_output" not in st.session_state:
     st.session_state.comparison_output = None
 
-# --- RESUME UPLOADER ---
 uploaded_file = st.file_uploader("📤 Upload your resume (PDF only)", type="pdf")
 
 if uploaded_file:
@@ -87,7 +79,6 @@ if uploaded_file:
     with col5:
         compare_btn = st.button("⚖️ Compare with Another Resume")
 
-    # --- BUTTON HANDLING LOGIC ---
     if ats_btn or skills_btn or suggestions_btn or domain_btn:
         st.session_state.second_resume_visible = False
         st.session_state.ats_output = None
@@ -103,7 +94,6 @@ if uploaded_file:
         st.session_state.suggestions_output = None
         st.session_state.domain_output = None
 
-    # --- ATS SCORE ---
     if ats_btn:
         with st.spinner("📈 Analyzing ATS compatibility..."):
             ats_prompt = (
@@ -118,12 +108,10 @@ if uploaded_file:
             except Exception as e:
                 st.error(f"❌ ATS Error: {e}")
 
-    # --- SHOW SKILLS ---
     if skills_btn:
         skills = extract_skills(resume_text)
         st.session_state.skills_output = ", ".join(skills) if skills else "No key skills detected."
 
-    # --- AI SUGGESTIONS ---
     if suggestions_btn:
         with st.spinner("💬 Generating suggestions..."):
             suggestion_prompt = (
@@ -137,7 +125,6 @@ if uploaded_file:
             except Exception as e:
                 st.error(f"❌ Suggestion Error: {e}")
 
-    # --- PREDICT DOMAIN ---
     if domain_btn:
         with st.spinner("🧠 Predicting..."):
             try:
@@ -148,11 +135,9 @@ if uploaded_file:
             except Exception as e:
                 st.warning(f"⚠️ Classification error: {e}")
 
-    # --- RESUME COMPARISON ---
     if compare_btn:
         st.session_state.second_resume_visible = True
 
-    # --- Resume Compare Mode UI ---
     if st.session_state.second_resume_visible:
         st.subheader("📥 Upload Second Resume for Comparison")
         second_file = st.file_uploader("Upload Second Resume (PDF)", type="pdf", key="second_resume_upload")
@@ -176,7 +161,6 @@ if uploaded_file:
             with col7:
                 visual_compare_btn = st.button("📊 Compare via Visualization")
 
-            # --- Textual Comparison Logic ---
             if text_compare_btn:
                 with st.spinner("⚖️ Comparing resumes..."):
                     prompt = (
@@ -193,7 +177,6 @@ if uploaded_file:
                     except Exception as e:
                         st.error(f"❌ Comparison Error: {e}")
 
-            # --- Visual Comparison Logic ---
             if visual_compare_btn:
                 with st.spinner("📊 Creating bar chart comparison..."):
                     prompt = (
@@ -238,7 +221,6 @@ if uploaded_file:
                     except Exception as e:
                         st.error(f"❌ Visualization Error: {e}")
 
-    # --- Display Outputs ---
     if st.session_state.ats_output:
         st.subheader("📈 ATS Score & Feedback")
         st.markdown(f"```markdown\n{st.session_state.ats_output}\n```")
