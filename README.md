@@ -1,1 +1,57 @@
-# Resume-Mentor
+# Resume Mentor – Smart Resume Analysis App
+
+## Features
+
+- Upload resume in PDF format.
+- Get ATS score with detailed breakdown and suggestions.
+- Predict the job domain based on resume content.
+- Automatically extract key technical and soft skills.
+- Generate AI-powered suggestions to improve your resume.
+- Compare two resumes side-by-side (text and visual format).
+- Visual insights using Plotly bar charts.
+
+## Tech Stack
+
+- **Frontend**: Streamlit  
+- **AI/NLP**: Cohere (LLM), Scikit-learn (for classification)  
+- **PDF Parsing**: pdfplumber  
+- **Visualization**: Plotly  
+- **Deployment**: Streamlit Cloud / Local  
+
+## How It Works
+
+1. Upload a PDF resume.
+2. The app extracts and displays the resume text.
+3. Choose one or more actions: ATS scoring, domain prediction, skill extraction, suggestions, or comparison.
+4. Get instant AI-generated results and feedback.
+
+## Resume Comparison
+
+- Upload a second resume.
+- Options:
+  - Text-based comparison with ATS aspects.
+  - Graphical comparison (bar chart) using Plotly.
+
+## Job Domain Prediction
+
+- Uses a pre-trained ML classifier to predict the top 5 most relevant job domains.
+- Example outputs:  
+  - Software Engineering  
+  - Data Science  
+  - Marketing  
+  - HR  
+  - Sales  
+
+## Why Use Resume Mentor?
+
+- Understand how ATS systems may interpret your resume.
+- Instantly get personalized improvement suggestions.
+- Learn what skills your resume highlights most.
+- Compare multiple versions of your resume.
+
+## Future Improvements
+
+- Add job listing API integration (based on resume content).
+- Resume version history and improvement tracking.
+- Resume export with embedded suggestions.
+
