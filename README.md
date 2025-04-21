@@ -31,7 +31,7 @@ resume_mentor/
 ## Installation
 
 ```bash
-git clone https://github.com/your-username/resume-mentor.git
+git clone https://github.com/Sagar-Nagpure/Resume-Mentor.git
 cd resume-mentor
 pip install -r requirements.txt
 ```
