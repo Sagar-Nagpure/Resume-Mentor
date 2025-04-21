@@ -101,4 +101,3 @@ streamlit run app.py
 
 **Sagar-Nagpure**  
 [GitHub Profile](https://github.com/Sagar-Nagpure)
-```
